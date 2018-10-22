@@ -24,17 +24,6 @@ var mov = " ";
 
 
 var finalCuad = new Array (4);
-//arrays de números
-var tab1;
-var tab2;
-var tab3;
-var tab4;
-
-//arrays de colores
-var colo1;
-var colo2;
-var colo3;
-var colo4;
 
 
 
