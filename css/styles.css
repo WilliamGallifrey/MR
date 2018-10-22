@@ -1,0 +1,61 @@
+
+body 
+{
+	padding-left: 50px;
+	padding-right: 50px;
+	font-family: 'Kodchasan', sans-serif;
+}
+
+aside{float: left; width: 40%}
+nav{float: right;}
+
+span {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	font-size: 4em;
+	border: solid white 4px;
+	border-radius: 10px;
+	transition: border 0.3s ease-out;
+}
+
+span:hover{border-color: black;}
+
+p{display: inline;
+font-size: 1.45em;}
+
+button
+{
+	margin: 10px;
+	height: auto;
+	width: auto;
+	border:  solid grey 3px;
+	border-radius: 4px;
+	font-size: 1.4em;
+	transition: border 0.3s ease-in-out;
+}
+
+button:hover
+{
+	border-color: black;
+}
+
+input
+{
+	margin: 10px;
+	height: 30px;
+	
+	border:  solid grey 3px;
+	border-radius: 4px;
+}
+#alert{font-size: 2.5em;}
+
+.redBal {background-color: #ff0000;}
+.greenBal {background-color: #afff00;}
+.blueBal {background-color: #0099bf;}
+.whiteBal {background-color: #e0e0e0;}
+.yellowBal {background-color: #fed802;}
+.pinkBal{background-color: #ffb6c1;}
+
+.end {border: solid black 4px;}
+.init {border: dashed black 4px;}
