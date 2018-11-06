@@ -6,13 +6,29 @@ var currClas;
 var currBal;
 var finBal;
 var initBal;
+
+
 //selector de colores
-var colors = ["pinkBal", "yellowBal", "greenBal","pinkBal", "redBal", "greenBal","pinkBal", "redBal", "blueBal","pinkBal", "yellowBal", "pinkBal","redBal", "blueBal", "yellowBal",	"greenBal", "redBal", "yellowBal","yellowBal", "whiteBal", "blueBal","whiteBal", "greenBal", "redBal","pinkBal", "greenBal", "whiteBal","whiteBal", "blueBal", "blueBal","redBal", "yellowBal", "whiteBal","blueBal", "greenBal", "whiteBal" ];
 //selector de números
-var nums = [3,3,3,2,4,5,5,6,4,6,5,1,1,5,6,1,5,1,2,1,1,2,2,2,4,6,4,6,6,2,3,4,3,3,4,5];
+
+var colo1 = [["pinkBal", "yellowBal", "greenBal"],["pinkBal", "redBal", "greenBal"],["pinkBal", "redBal", "blueBal"]];
+var colo2 = [["pinkBal", "yellowBal", "pinkBal"],["redBal", "blueBal", "yellowBal"],["greenBal", "redBal", "yellowBal"]];
+var colo3 = [["yellowBal", "whiteBal", "blueBal"],["whiteBal", "greenBal", "redBal"],["pinkBal", "greenBal", "whiteBal"]];
+var colo4 = [["whiteBal", "blueBal", "blueBal"],["redBal", "yellowBal", "whiteBal"],["blueBal", "greenBal", "whiteBal"]];
+
+var nums1 = [[3,3,3],[2,4,5],[5,6,4]];
+var nums2 = [[6,5,1],[1,5,6],[1,5,1]];
+var nums3 = [[2,1,1],[2,2,2],[4,6,4]];
+var nums4 = [[6,6,2],[3,4,3],[3,4,5]];
+
+var cuadNum = [nums1,nums2,nums3,nums4];
+var cuadCol = [colo1,colo2,colo3,colo4];
+
 //array con los valores iniciales permitidos de los cuadrantes
-var randTabl = [0,9,18,27];
+var randTabl = [0,1,2,3];
 var rand;
+var aux;
+var aux1;
 
 var totMov = 0;
 var listMov = " ";
@@ -38,68 +54,40 @@ function colorNumero(currVal, queryVal, currClas, queryClas)
 }
 
 
-//crea y rellena de números un cuadrande de 3x3
-function creaArrayNumCol(pos,poscol)
+function getCuad (num) 
+
+
 {
+	var cuadrant = new Array(2);
+	cuadrant [0] = cuadNum[num];
+	cuadrant [1] = cuadCol[num];
 
-	var cuadrant = new Array (2);
-
-	var tablArr = new Array (3);
-	var coloArr = new Array (3);
-
-	for (let i = 0; i < 3; i++) 
-	{
-	tablArr[i] = new Array (3);
-	coloArr[i] = new Array (3);
-	}
-
-
-	for(let j = 0; j < 3; j++)
-	{
-		for(var k = 0; k < 3; k++)
-		{
-			tablArr[j][k] = nums[pos];
-			coloArr[j][k] = colors[poscol];
-			
-			pos++;
-			poscol++;
-		}
-	}
-
-	cuadrant [0] = tablArr;
-	cuadrant [1] = coloArr;
-	
 	return cuadrant;
 }
 
 
 
-
-//Se crean en orden aleatorio los 4 cuadrantes
-function cuadrantes () 
+function ordenaTablero () 
 {
-	for (var j = 0; j < 4; j++) {
-		finalCuad[j] = new Array(2);
-	}
-	
 
-	for (let i = 4; i >0; i--) {
+	for (var j = 0; j < 4; j++) 
+	{
+		finalCuad[j] = new Array(2);
+ 	}
+
+ 	
+for (let i = 4; i > 0; i--) {
 
 		rand = Math.floor(Math.random()*i);
-		cuad = creaArrayNumCol(randTabl[rand], randTabl[rand]);
+		
 
-		finalCuad [i-1][0] = cuad [0];
-		finalCuad [i-1][1] = cuad [1];
+		finalCuad [i-1]= getCuad(randTabl[rand]);
 		if(i!=1)randTabl.splice(rand,1);
 	}
 
-		cuad = creaArrayNumCol(randTabl[0], randTabl[0]);
+		finalCuad [0]= getCuad(randTabl[0]);
 
-		finalCuad [0][0] =  cuad [0];
-		finalCuad [0][1] = cuad [1];
-		
-
-	randTabl = [0,9,18,27];
+	randTabl = [0,1,2,3];
 }
 
 
@@ -176,6 +164,31 @@ function creaTablero()
 	}
 }
 
+
+function giraCuad (arr, veces) 
+{
+
+	for (var j = 0; j <= veces; j++)
+	{
+		var aux = arr;
+
+		for (var m = 0; m < arr.length; m++) 
+		{
+			for (var n = 0; n < arr.length; n++) 
+			{
+				arr[m,n] = aux[n,m];
+			}	
+
+		}
+
+		aux = arr[0];
+		aux1 = arr[arr.length-1];
+
+		arr[0] = aux1;
+		arr[arr.length-1] = aux;
+	}
+}
+
 function startEnd()
 {	
 	if (currBal != undefined) currBal.classList.remove("init");
@@ -240,7 +253,7 @@ function reset()
 function init ()
 {	
 	
-	cuadrantes();
+	ordenaTablero();
 	creaTablero();
 	startEnd();
 	reset();
