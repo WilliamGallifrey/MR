@@ -24,11 +24,15 @@ var nums4 = [[6,6,2],[3,4,3],[3,4,5]];
 var cuadNum = [nums1,nums2,nums3,nums4];
 var cuadCol = [colo1,colo2,colo3,colo4];
 
-//array con los valores iniciales permitidos de los cuadrantes
+//Array para saber qué cuadrante se ha usado ya
 var randTabl = [0,1,2,3];
 var rand;
-var aux;
-var aux1;
+var auxN;
+var auxC;
+var nums;
+var colors;
+var aux1N;
+var aux1C;
 
 var totMov = 0;
 var listMov = " ";
@@ -78,11 +82,11 @@ function ordenaTablero ()
  	
 for (let i = 4; i > 0; i--) {
 
-		rand = Math.floor(Math.random()*i);
+		rand = Math.floor(Math.random()*i);		
 		
-
 		finalCuad [i-1]= getCuad(randTabl[rand]);
 		if(i!=1)randTabl.splice(rand,1);
+		
 	}
 
 		finalCuad [0]= getCuad(randTabl[0]);
@@ -165,28 +169,35 @@ function creaTablero()
 }
 
 
-function giraCuad (arr, veces) 
+function giraCuad (cuad, veces) 
 {
+
+	nums= finalCuad[cuad][0];
+	colors= finalCuad[cuad][1];
+
 
 	for (var j = 0; j <= veces; j++)
 	{
-		var aux = arr;
-
-		for (var m = 0; m < arr.length; m++) 
-		{
-			for (var n = 0; n < arr.length; n++) 
-			{
-				arr[m,n] = aux[n,m];
-			}	
-
-		}
-
-		aux = arr[0];
-		aux1 = arr[arr.length-1];
-
-		arr[0] = aux1;
-		arr[arr.length-1] = aux;
+		
+			
+				console.log(nums);
+				
+				
 	}
+
+	console.log(nums);
+	console.log(colors);
+
+	creaTablero();
+}
+
+function rotar()
+{
+
+var aleat = Math.floor(Math.random()*4);
+
+giraCuad(aleat,aleat*2);
+
 }
 
 function startEnd()
