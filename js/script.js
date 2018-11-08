@@ -31,8 +31,7 @@ var auxN;
 var auxC;
 var nums;
 var colors;
-var aux1N;
-var aux1C;
+
 
 var totMov = 0;
 var listMov = " ";
@@ -90,6 +89,8 @@ for (let i = 4; i > 0; i--) {
 	}
 
 		finalCuad [0]= getCuad(randTabl[0]);
+
+	
 
 	randTabl = [0,1,2,3];
 }
@@ -172,23 +173,48 @@ function creaTablero()
 function giraCuad (cuad, veces) 
 {
 
-	nums= finalCuad[cuad][0];
-	colors= finalCuad[cuad][1];
+	
+	nums = finalCuad[cuad][0];
+	colors = finalCuad[cuad][1];
+
+	
 
 
-	for (var j = 0; j <= veces; j++)
-	{
+	//for (var j = 0; j < veces; j++)
+	//{	
+
+		nums = nums.reverse();
+	colors = colors.reverse();
+
+		for (var ext = 0; ext < nums.length; ext++) 
+		{
+			for (var intr = 0; intr < ext; intr++)
+			{	
+
+				var temp = nums[ext][intr];			
+				nums[ext][intr] = nums[intr][ext];
+				nums[intr][ext] = temp;
+
+				var temp = colors[ext][intr];			
+				colors[ext][intr] = colors[intr][ext];
+				colors[intr][ext] = temp;
+
+				//colors[ext][intr] = auxC[intr][ext];
+			}
+		}
+ 		
 		
-			
-				console.log(nums);
 				
-				
-	}
+	//}
 
-	console.log(nums);
-	console.log(colors);
+
+	finalCuad[cuad][0] = nums;
+	finalCuad[cuad][1] = colors;	
+
 
 	creaTablero();
+	startEnd();
+	reset();
 }
 
 function rotar()
@@ -196,7 +222,7 @@ function rotar()
 
 var aleat = Math.floor(Math.random()*4);
 
-giraCuad(aleat,aleat*2);
+giraCuad(aleat,2);
 
 }
 
@@ -297,14 +323,6 @@ function clicBal (bal)
 	var esend = queryBal.classList[1] == "end";
 	var esval = currVal == queryVal;
 	var esclas = currClas == queryClas;
-
-	console.log("es end: " + esend);
-	console.log("Valor igual: " + esval);
-	console.log("Clase igual: " + esclas);
-	console.log(" ");
-
-
-	
 
 	if(enFilaColumna(currRow, queryRow, currCol, queryCol))
 	{
