@@ -16,19 +16,37 @@
 <button id="comp" onclick="checkVal()">Comprobar</button>
 <br>
  -->
-<p>Movimientos realizados:</p> <p id="seqMov">Sin movimientos</p>
+ <p>Movimientos realizados:</p>
+ <br>
+<div class="movList"><p id="seqMov">Sin movimientos</p></div>
 <br>
-<p>Total movimientos: </p><p id="totMov">0</p>
-<br>
-<p id="alert">Mensajes del juego aquí</p>
-<br>
+<div class="mov"><p>Total movimientos: </p><p id="totMov">0</p></div>
+
+<div class="alertDiv"><p id="alert"></p></div>
+
+<div class="jugador">
+	
+	Jugador: <input id="jug" type="text" name="jug"><a href="#"  onclick="guardaJug()">Guardar Jugada</a >
+
+</div>
+<div class="listaDiv">
+	<div id="lista"></div>
+
+
+</div>
 </aside>
 
 <nav>
-	<button onclick="initPos()">Nuevo Inicio-Fin</button>
-	<button onclick="init()">Nuevo juego</button>
-	<button onclick="reset()">Otra jugada</button>
-	<button onclick="rotar()">Rotar un tablero</button>
+	<a href="#"  onclick="initPos()">Nuevo Inicio-Fin</a >
+	<a href="#"  onclick="init()">Nuevo juego</a >
+	<a href="#"  onclick="reset()">Otra jugada</a >
+	<br>
+
+	<a class="r r1" href="#"  onclick="giraCuad(0)">Rotar</a>
+	<a class="r r2"href="#"  onclick="giraCuad(1)">Rotar</a>
+	<a class="r r3" href="#"  onclick="giraCuad(2)">Rotar</a >
+	<a class="r r4" href="#"  onclick="giraCuad(3)">Rotar</a >
+
 	<div id="tablero"></div>
 <nav>
 

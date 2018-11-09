@@ -38,6 +38,7 @@ var listMov = " ";
 var totres = document.getElementById('totMov');
 var movres = document.getElementById('seqMov');
 var alerts = document.getElementById('alert');
+var lista = document.getElementById("lista");
 var mov = " ";
 
 
@@ -125,14 +126,14 @@ function creaTablero()
 				if(m<4)
 				{
 					num = document.createTextNode(finalCuad[0][0][l-1][m-1]);
-					baldosa.className = finalCuad[0][1][l-1][m-1];
+					baldosa.classList.add(finalCuad[0][1][l-1][m-1]);
 				}
 				//y la mitad de la derecha
 				else
 				{ 
 					
 					num = document.createTextNode(finalCuad[1][0][l-1][m-4]);
-					baldosa.className = finalCuad[1][1][l-1][m-4];
+					baldosa.classList.add(finalCuad[1][1][l-1][m-4]);
 				}
 				//crea los atributos y funciones
 				baldosa.id = l.toString() + m.toString();
@@ -148,14 +149,14 @@ function creaTablero()
 				{
 					
 					num = document.createTextNode(finalCuad[2][0][l-4][m-1]);
-					baldosa.className = finalCuad[2][1][l-4][m-1];
+					baldosa.classList.add(finalCuad[2][1][l-4][m-1]);
 				}
 				//y la mitad de la derecha
 				else
 				{ 
 					
 					num = document.createTextNode(finalCuad[3][0][l-4][m-4]);
-					baldosa.className = finalCuad[3][1][l-4][m-4];
+					baldosa.classList.add(finalCuad[3][1][l-4][m-4]);
 				}
 				//crea los atributos y funciones
 				baldosa.id = l.toString() + m.toString();
@@ -170,20 +171,14 @@ function creaTablero()
 }
 
 
-function giraCuad (cuad, veces) 
+function giraCuad (cuad) 
 {
 
 	
 	nums = finalCuad[cuad][0];
-	colors = finalCuad[cuad][1];
+	colors = finalCuad[cuad][1];	
 
-	
-
-
-	//for (var j = 0; j < veces; j++)
-	//{	
-
-		nums = nums.reverse();
+	nums = nums.reverse();
 	colors = colors.reverse();
 
 		for (var ext = 0; ext < nums.length; ext++) 
@@ -199,13 +194,11 @@ function giraCuad (cuad, veces)
 				colors[ext][intr] = colors[intr][ext];
 				colors[intr][ext] = temp;
 
-				//colors[ext][intr] = auxC[intr][ext];
 			}
 		}
  		
 		
-				
-	//}
+			
 
 
 	finalCuad[cuad][0] = nums;
@@ -217,14 +210,7 @@ function giraCuad (cuad, veces)
 	reset();
 }
 
-function rotar()
-{
 
-var aleat = Math.floor(Math.random()*4);
-
-giraCuad(aleat,2);
-
-}
 
 function startEnd()
 {	
@@ -277,13 +263,32 @@ function reset()
 	movres.innerText = "Ningún movimiento realizado";
 	currBal.classList.remove("init");
 	initBal.classList.add("init");
-	alerts.innerText = " ";
+	alerts.innerText = "Mensajes";
 	
 	currRow = iniRow;
 	currCol = iniCol;
 	currVal = iniVal;
 	currClas = iniClas;
-	currBal = iniBal;	
+	currBal = iniBal;
+}
+
+function guardaJug()
+{
+	var jugada = "";
+	var jug = document.getElementById("jug").value;
+	
+	jugada = jug + ": " + totres.innerText;
+
+	jug = document.createElement("span");
+	jug.classList.add("jugada");
+	jug.innerHTML = jugada;
+
+
+	lista.appendChild(jug);
+
+	document.getElementById("jug").value = "";
+
+	reset();
 }
 
 //inicializa el juego para empezar (matrices de cuadrantes, tablero y posición de inicio y final)
@@ -317,7 +322,10 @@ function clicBal (bal)
 	var queryCol = bal.dataset.col;
 	var queryVal = bal.innerText;
 	var queryClas = bal.classList [0];
-	alerts.innerText = " ";
+
+	console.log(queryId);
+	alerts.innerText = "Mensajes";
+	if(movres.innerHTML == "Ningún movimiento realizado") movres.innerHTML = "";
 
 	
 	var esend = queryBal.classList[1] == "end";
@@ -332,20 +340,23 @@ function clicBal (bal)
 
 			if (queryBal.classList[1] == "end" )
 			{	
-				mov = " {" + queryRow + "," + queryCol + "}";
-				listMov = listMov + mov;
+				var span = document.createElement("span");
+				span.innerHTML =  queryRow + "," + queryCol;
+				span.classList.add("movi");
 				totMov++;
 				totres.innerText = totMov;
-				movres.innerText = listMov;
 				alerts.innerText = "Has ganado!";
+				movres.appendChild(span);
 			}
 
 			else
 			{
 
 				initBal.classList.remove("init");
-				mov = " {" + queryRow + "," + queryCol + "}";
-				listMov = listMov + mov;
+
+				var span = document.createElement("span");
+				span.innerHTML =  queryRow + "," + queryCol;
+				span.classList.add("movi");
 				totMov++;
 
 				currid = queryId;
@@ -360,7 +371,7 @@ function clicBal (bal)
  				currBal = queryBal;
 
  				totres.innerText = totMov;
- 				movres.innerText = listMov;
+ 				movres.appendChild(span);
  				
  	
  			}
