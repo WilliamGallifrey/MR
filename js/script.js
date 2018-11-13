@@ -273,22 +273,34 @@ function reset()
 }
 
 function guardaJug()
+
 {
-	var jugada = "";
 	var jug = document.getElementById("jug").value;
-	
-	jugada = jug + ": " + totres.innerText;
+	var listaJug = document.getElementById("jug").value;
+	if(listaJug != "")
+	{
 
-	jug = document.createElement("span");
-	jug.classList.add("jugada");
-	jug.innerHTML = jugada;
+		if(document.getElementById("alert").innerText == "Has ganado!")
+		{
+			var jugada = "";
+			
+			jugada = jug + ": " + totres.innerText;
+		
+			jug = document.createElement("span");
+			jug.classList.add("jugada");
+			jug.innerHTML = jugada;
+		
+		
+			lista.appendChild(jug);
+		
+			document.getElementById("jug").value = "";
+		
+			reset();
+		}
+		else alert("No has ganado, zorro");
+	}
 
-
-	lista.appendChild(jug);
-
-	document.getElementById("jug").value = "";
-
-	reset();
+	else alert("No hay jugador");
 }
 
 //inicializa el juego para empezar (matrices de cuadrantes, tablero y posición de inicio y final)
@@ -299,6 +311,7 @@ function init ()
 	creaTablero();
 	startEnd();
 	reset();
+	document.getElementById("lista").innerHTML = "";
 }
 
 //crea un nuevo inicio y final en el mismo tablero
@@ -323,7 +336,6 @@ function clicBal (bal)
 	var queryVal = bal.innerText;
 	var queryClas = bal.classList [0];
 
-	console.log(queryId);
 	alerts.innerText = "Mensajes";
 	if(movres.innerHTML == "Ningún movimiento realizado") movres.innerHTML = "";
 
